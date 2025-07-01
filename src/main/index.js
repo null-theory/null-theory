@@ -1,0 +1,31 @@
+import express from 'express';
+import mongoose from 'mongoose';
+import routerPost from './routers/routerPost.js';
+import routerRole from "./routers/routerRole.js";
+import routerRestaurant from "./routers/routerRestaurant.js";
+import routerMenu from "./routers/routerMenu.js";
+
+const app = express();
+const DB_URL = 'mongodb+srv://user:userdb123445@cluster0.6ffyton.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+
+const port = 5001;
+
+app.use(express.json());
+app.use('/api', routerPost);
+app.use('/api', routerRestaurant);
+app.use('/api', routerRole);
+app.use('/api', routerMenu);
+console.log('routers mounted on /api');
+
+
+async function startApp(){
+    try {
+        await mongoose.connect(DB_URL)
+        app.listen(port, () => {
+            console.log(`Server started on port ${port}`);
+        })
+    }catch (err){
+        console.error(err);
+    }
+}
+startApp();
