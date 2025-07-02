@@ -4,6 +4,10 @@ import routerPost from './routers/routerPost.js';
 import routerRole from "./routers/routerRole.js";
 import routerRestaurant from "./routers/routerRestaurant.js";
 import routerMenu from "./routers/routerMenu.js";
+import routerUser from "./routers/routerUser.js";
+import authRoutes from "./routers/authRoutes.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const DB_URL = 'mongodb+srv://user:userdb123445@cluster0.6ffyton.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
@@ -15,6 +19,8 @@ app.use('/api', routerPost);
 app.use('/api', routerRestaurant);
 app.use('/api', routerRole);
 app.use('/api', routerMenu);
+app.use('/api', routerUser);
+app.use('/api/auth', authRoutes);
 console.log('routers mounted on /api');
 
 

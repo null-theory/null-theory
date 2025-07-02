@@ -11,6 +11,7 @@ const User = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Restaurant',
         required: true
-    }
+    },
+    password: {type: String, required: true}
 })
 export default mongoose.model('User', User);
