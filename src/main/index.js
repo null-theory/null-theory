@@ -10,9 +10,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const DB_URL = 'mongodb+srv://user:userdb123445@cluster0.6ffyton.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
-const port = 5001;
+const port = process.env.PORT || 5001;
+const DB_URL = process.env.DB_URL;
 
 app.use(express.json());
 app.use('/api', routerPost);

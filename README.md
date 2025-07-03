@@ -1,37 +1,40 @@
-project-root/
-│
-├── node_modules/
-│
-├── src/
-│   ├── controllers/       # обработчики маршрутов (business logic)
-│   │   └── userController.js
-│   │   └── productController.js
-│   │
-│   ├── routes/            # описания маршрутов
-│   │   └── userRoutes.js
-│   │   └── productRoutes.js
-│   │
-│   ├── models/            # описание моделей данных (например, для MongoDB или Sequelize)
-│   │   └── user.js
-│   │   └── product.js
-│   │
-│   ├── middlewares/       # кастомные мидлвары (например, auth, errorHandler)
-│   │   └── auth.js
-│   │
-│   ├── services/          # вспомогательная бизнес-логика (например, работа с файлами, API)
-│   │   └── mailService.js
-│   │
-│   ├── utils/             # утилитарные функции
-│   │   └── validator.js
-│   │
-│   ├── config/            # конфигурации (например, db.js, переменные окружения)
-│   │   └── db.js
-│   │
-│   ├── app.js             # точка входа Express (инициализация приложения)
-│   │
-│   └── server.js          # запуск сервера (прослушивание порта)
-│
-├── .env                   # переменные окружения
-├── .gitignore
-├── package.json
-└── README.md
+-src
+\---main
+|   index.js
+|
++---config
++---controllers
+|       authController.js
+|       MenuController.js
+|       PostController.js
+|       RestaurantController.js
+|       RoleController.js
+|       UserController.js
+|
++---middlewares
+|       authMiddleware.js
+|
++---models
+|       menu.js
+|       post.js
+|       restaurant.js
+|       role.js
+|       user.js
+|
++---routers
+|       authRoutes.js
+|       routerMenu.js
+|       routerPost.js
+|       routerRestaurant.js
+|       routerRole.js
+|       routerUser.js
+|
++---services
+|       authService.js
+|       MenuService.js
+|       PostService.js
+|       RestaurantService.js
+|       RoleService.js
+|       UserService.js
+|
+\---utils
