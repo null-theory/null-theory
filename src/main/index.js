@@ -21,8 +21,6 @@ app.use('/api', routerRole);
 app.use('/api', routerMenu);
 app.use('/api', routerUser);
 app.use('/api/auth', authRoutes);
-console.log('routers mounted on /api');
-
 
 async function startApp(){
     try {
