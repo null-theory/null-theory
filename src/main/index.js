@@ -10,6 +10,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
+const cors = require('cors');
+app.use(cors());
 
 const port = process.env.PORT || 5001;
 const DB_URL = process.env.DB_URL;
