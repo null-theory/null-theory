@@ -1,5 +1,5 @@
 // controllers/userController.js
-import { UserService } from "../services/userService.js";
+import {UserService} from "../services/UserService.js";
 
 export const UserController = {
     async create(req, res) {
