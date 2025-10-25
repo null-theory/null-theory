@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: my-node-app
+    name: null-theory-1
     env: node
     plan: free
     buildCommand: npm install
