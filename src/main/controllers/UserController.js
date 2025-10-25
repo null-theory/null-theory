@@ -1,46 +1,44 @@
-import UserService from '../services/UserService.js';
+// controllers/userController.js
+import {
+    createUser,
+    getUser,
+    updateUser,
+    deleteUser,
+} from "../services/userService.js";
 
-class UserController {
-    async getUsers(req, res) {
-        try {
-            const user = await UserService.getUsers();
-            res.status(200).json(user);
-        }catch (error) {
-            return res.status(500).send({})
-        }
-    }
-    async getUserById(req, res) {
-        try {
-            const user = await UserService.getUserById(req.params.id);
-            res.status(200).json(user);
-        }catch (error) {
-            return res.status(500).send({})
-        }
-    }
-    async createUser(req, res) {
-        try {
-            const user = await UserService.createUser(req.body);
-            res.status(200).json(user);
-        }catch (error) {
-            return res.status(500).send({})
-        }
-    }
-    async updateUser(req, res) {
-        try {
-            const user = await UserService.updateUser(req.params.id, req.body);
-            res.status(200).json(user);
-        }catch (error) {
-            return res.status(500).send({})
-        }
-    }
-    async deleteUser(req, res) {
-        try {
-            const user = await UserService.deleteUser(req.params.id);
-            res.status(200).json(user);
-        }catch (error) {
-            return res.status(500).send({})
-        }
+export async function handleCreateUser(req, res) {
+    try {
+        const userId = await createUser(req.body);
+        res.status(201).json({ userId });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 }
 
-export default new UserController();
+export async function handleGetUser(req, res) {
+    try {
+        const user = await getUser(req.params.id);
+        if (!user) return res.status(404).json({ error: "User not found" });
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+export async function handleUpdateUser(req, res) {
+    try {
+        await updateUser(req.params.id, req.body);
+        res.json({ message: "User updated" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+export async function handleDeleteUser(req, res) {
+    try {
+        await deleteUser(req.params.id);
+        res.json({ message: "User deleted" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}

@@ -1,23 +1,24 @@
+// controllers/authController.js
 import authService from '../services/authService.js';
 
 class AuthController {
-    async login(req, res, next) {
+    async register(req, res) {
+        const { email, password, roleId, restaurantId } = req.body;
         try {
-            const { username, password } = req.body;
-            const token = await authService.login(username, password);
-            res.json({ token });
-        } catch (e) {
-            next(e);
+            const result = await authService.register(email, password, roleId, restaurantId);
+            res.status(201).json(result);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
         }
     }
 
-    async register(req, res, next) {
+    async login(req, res) {
+        const { idToken } = req.body; // получаем от клиента
         try {
-            const { username, password, roleId, restaurantId } = req.body;
-            const user = await authService.register(username, password, roleId, restaurantId);
-            res.json(user);
-        } catch (e) {
-            next(e);
+            const userData = await authService.login(idToken);
+            res.status(200).json(userData);
+        } catch (error) {
+            res.status(401).json({ error: error.message });
         }
     }
 }

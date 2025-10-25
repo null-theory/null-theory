@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  title: Active Service API
+  version: 1.0.0
+  description: API для туров
+
+servers:
+  - url: http://localhost:5001/api
+
+paths:
+  /tours:
+    get:
+      summary: Получить список туров
+      responses:
+        '200':
+          description: Список туров
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tour'
+
+components:
+  schemas:
+    Tour:
+      type: object
+      properties:
+        title:
+          type: string
+        image:
+          type: string
+        price:
+          type: string
+        description:
+          type: string
+        dates:
+          type: array
+          items:
+            type: string
+        buttonText:
+          type: string

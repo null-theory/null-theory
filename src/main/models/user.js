@@ -1,17 +1,19 @@
-import mongoose from "mongoose";
-
-const User = new mongoose.Schema({
-    username: {type: String, required: true},
+export const UserEntity = {
+    username: {
+        type: "string",
+        required: true,
+        description: "Имя пользователя",
+    },
     roleId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Role',
-        required: true
+        type: "string",
+        required: true,
+        reference: "roles",
+        description: "ID роли, ссылается на документ в коллекции roles",
     },
-    restaurantId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Restaurant',
-        required: true
-    },
-    password: {type: String, required: true}
-})
-export default mongoose.model('User', User);
+    role: {
+        type: "string",
+        required: true,
+        enum: ["admin", "user"],
+        description: "Роль пользователя: admin или user",
+    }
+};

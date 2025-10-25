@@ -1,15 +1,15 @@
-import jwt from "jsonwebtoken";
+import authMiddleware from "../middleware/authMiddleware.js";
 
-export default function(req, res, next) {
-    try {
-        const token = req.headers.authorization?.split(' ')[1];
-        if (!token) {
-            return res.status(401).json({ message: "unauthorized" });
-        }
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
-        next(); // все ок, идём дальше
-    } catch (e) {
-        return res.status(401).json({ message: "unauthorized" });
+router.put('/user/:id', authMiddleware, async (req, res) => {
+    // только авторизованный пользователь может изменить
+    const { id } = req.params;
+    const { username, role } = req.body;
+
+    // можно добавить проверку: может ли этот пользователь менять других
+    if (req.user.role !== 'admin' && req.user.id !== id) {
+        return res.status(403).json({ message: "Forbidden: insufficient rights" });
     }
-}
+
+    await updateUser(id, { username, role });
+    res.status(200).json({ message: "User updated" });
+});
