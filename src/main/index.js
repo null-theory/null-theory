@@ -17,7 +17,7 @@ const swaggerDocument = YAML.load("./swagger.yaml");
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api', routerUser);
 app.use('/api/auth', authRoutes);
-app.use("/api/tours", tourRouter);
+app.use("/api", tourRouter);
 
 
 // Запуск сервера без подключения к базе данных

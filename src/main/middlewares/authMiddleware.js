@@ -1,15 +1,16 @@
-import authMiddleware from "../middleware/authMiddleware.js";
+import admin from 'firebase-admin';
 
-router.put('/user/:id', authMiddleware, async (req, res) => {
-    // только авторизованный пользователь может изменить
-    const { id } = req.params;
-    const { username, role } = req.body;
+export default async function(req, res, next) {
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
+        if (!token) {
+            return res.status(401).json({ message: 'unauthorized' });
+        }
 
-    // можно добавить проверку: может ли этот пользователь менять других
-    if (req.user.role !== 'admin' && req.user.id !== id) {
-        return res.status(403).json({ message: "Forbidden: insufficient rights" });
+        const decoded = await admin.auth().verifyIdToken(token);
+        req.user = decoded; // uid, email, roleId (если добавлен в custom claims)
+        next();
+    } catch (e) {
+        return res.status(401).json({ message: 'unauthorized' });
     }
-
-    await updateUser(id, { username, role });
-    res.status(200).json({ message: "User updated" });
-});
+}
